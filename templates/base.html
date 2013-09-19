@@ -2,6 +2,8 @@
 <head>
   <title>Hacker Clone</title>
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/main.css" />
+  <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+  <script src="{{ STATIC_URL }}js/vote.js"></script>
 </head>
 <body>
 <h1>Hacker Clone</h1>
@@ -13,6 +15,7 @@
   <p>
     <a href="{% url 'home' %}">Home</a> |
 {% if user.is_authenticated %}
+	<a href="{% url 'link_create' %}">Submit Link</a> |
     <a href="{% url 'logout' %}">Logout</a> |
     <a href="{% url 'profile' slug=user.username %}"><b>{{ user.username }}</b></a>
 {% else %}

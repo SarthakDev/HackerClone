@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required as auth
-from links.views import LinkListView, UserProfileDetailView, UserProfileEditView
+from links.views import LinkListView, UserProfileDetailView, UserProfileEditView, LinkCreateView, LinkDetailView, LinkUpdateView, LinkDeleteView, VoteFormView
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -21,5 +21,13 @@ urlpatterns = patterns('',
                        url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
                        url(r'^users/(?P<slug>\w+)/$', UserProfileDetailView.as_view(), name='profile'),
                        url(r'^edit_profile/$', auth(UserProfileEditView.as_view()), name='edit_profile'),
+                       url(r'^link/create/$', auth(LinkCreateView.as_view()), name='link_create'),
+                       url(r'^link/(?P<pk>\d+)/$', LinkDetailView.as_view(), name='link_detail'),
+                       url(r'^link/update/(?P<pk>\d+)/$', auth(LinkUpdateView.as_view()), name='link_update'),
+                       url(r'^link/delete/(?P<pk>\d+)/$', auth(LinkDeleteView.as_view()), name='link_delete'),
+                       url(r'^comments/', include('django.contrib.comments.urls')),
+                       url(r'^vote/$', auth(VoteFormView.as_view()), name="vote"),
+
+                       #### url for django-registration
                        url(r'^accounts/', include('registration.backends.simple.urls')),
                        )
